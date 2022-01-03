@@ -17,8 +17,10 @@ jobs:
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
-          token: ${{ steps.generate_token.outputs.token }}
+          token: ${TOKEN}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+        env:
+          TOKEN: ${{ steps.generate_token.outputs.token }}
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.4
         env:
