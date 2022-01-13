@@ -51,3 +51,4 @@ jobs:
           -d '{"ref":"$GITHUB_REF"}'
         env:
           GITHUB_TOKEN: ${{ secrets.REPPAT }}
+          GITHUB_REF: ${GITHUB_REF}
