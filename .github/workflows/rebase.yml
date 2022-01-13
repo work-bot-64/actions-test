@@ -1,3 +1,28 @@
+# name: Automatic Rebase
+# on:
+#   issue_comment:
+#     types: [created]
+# jobs:
+#   rebase:
+#     name: Rebase
+#     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Generate token
+#         id: generate_token
+#         uses: tibdex/github-app-token@v1.5.0
+#         with:
+#           app_id: ${{ secrets.APP_ID }}
+#           private_key: ${{ secrets.APP_PRIVATE_KEY }}
+#       - name: Checkout the latest code
+#         uses: actions/checkout@v2
+#         with:
+#           token: ${{ steps.generate_token.outputs.token }}
+#           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+#       - name: Automatic Rebase
+#         uses: cirrus-actions/rebase@1.4
+#         env:
+#           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 name: Automatic Rebase
 on:
   issue_comment:
@@ -8,18 +33,12 @@ jobs:
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase')
     runs-on: ubuntu-latest
     steps:
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1.5.0
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Checkout the latest code
         uses: actions/checkout@v2
         with:
-          token: ${{ steps.generate_token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.4
         env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
