@@ -26,7 +26,7 @@
 name: Automatic Rebase
 on:
   issue_comment:
-    types: [created]
+    types: [ created ]
 jobs:
   rebase:
     name: Rebase
@@ -42,3 +42,10 @@ jobs:
         uses: cirrus-actions/rebase@1.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Manually trigger another workflow
+        run: |
+          curl \
+           -X POST \
+           -H "Accept: application/vnd.github.v3+json" \
+           https://api.github.com/repos/Vyom-Yadav/actions-test/actions/workflows/action1.yml/dispatches \
+          -d '{"ref":"main"}'
