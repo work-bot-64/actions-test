@@ -49,3 +49,5 @@ jobs:
            -H "Accept: application/vnd.github.v3+json" \
            https://api.github.com/repos/Vyom-Yadav/actions-test/actions/workflows/action1.yml/dispatches \
           -d '{"ref":"main"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
