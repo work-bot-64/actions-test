@@ -45,10 +45,10 @@ jobs:
       - name: Manually trigger another workflow
         run: |
           curl \
-           -X POST \
-           -u Vyom-Yadav:"$GITHUB_TOKEN" \
-           https://api.github.com/repos/Vyom-Yadav/actions-test/actions/workflows/action1.yml/dispatches \
-          -d '{"ref":"$GITHUB_REF"}'
+          -X POST \
+          -H "Authorization: token $token" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/Vyom-Yadav/actions-test/actions/workflows/action1.yml/dispatches \
+          -d '{"ref":"testingRestApi"}'
         env:
-          GITHUB_TOKEN: ${{ secrets.REPPAT }}
-          GITHUB_REF: ${GITHUB_REF}
+          token: ${{ secrets.REPPAT }}
