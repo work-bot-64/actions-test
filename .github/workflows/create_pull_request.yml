@@ -14,7 +14,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Modify File
         run: |
-          cd /../../actions-test
           sed '$ a Again' abc.txt
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
