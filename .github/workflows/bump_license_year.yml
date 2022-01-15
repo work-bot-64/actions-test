@@ -35,8 +35,8 @@ jobs:
           branch: bump-year
           delete-branch: true
           body: |
-            minor: bump year to '${year}'
+            minor: bump year to $year
             Happy New Year!!
-          title: "minor: bump year to '${year}'"
+          title: "minor: bump year to '$year'"
         env:
-          year: ${{ steps.CURRENT_YEAR.outputs.message }}
+          year: ${{ steps.CURRENT_YEAR.outputs }}
