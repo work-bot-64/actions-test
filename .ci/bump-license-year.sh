@@ -2,9 +2,9 @@
 
 set -e
 
-CURR_YEAR=$(date +"%Y")
-PREV_YEAR=$(expr $CURR_YEAR - 1)
-DIR=$PWD
+PREV_YEAR=$1
+CURR_YEAR=$2
+DIR=$3
 
 OLD_VALUE="// Copyright (C) 2001-$PREV_YEAR the original author or authors."
 NEW_VALUE="// Copyright (C) 2001-$CURR_YEAR the original author or authors."

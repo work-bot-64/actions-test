@@ -20,13 +20,15 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Modify File
-        run: |
-          ./.ci/bump-license-year.sh
       - name: Print Current Year
         id: CURRENT_YEAR
         run: |
-          echo "::set-output name=year::$(date +'%Y')"
+            echo "::set-output name=year::$(date +'%Y')"
+      - name: Modify File
+        run: |
+          ./.ci/bump-license-year.sh $(expr ${{ env.year }} - 1) ${{ env.year }} .
+        env:
+          year: ${{ steps.CURRENT_YEAR.outputs.year }}
       - name: Echo Year
         id: echo_year
         run: |
@@ -43,5 +45,5 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: bump-year
           delete-branch: true
-          body: "minor: Bump year to ${{ steps.CURRENT_YEAR.outputs.year }}"
-          title: "minor: Bump year to ${{ steps.CURRENT_YEAR.outputs.year }}"
+          body: "minor: Bump year to ${{ env.year }}"
+          title: "minor: Bump year to ${{ env.year }}"
