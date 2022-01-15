@@ -39,4 +39,4 @@ jobs:
             Happy New Year!!
           title: "minor: bump year to '$year'"
         env:
-          year: ${{ steps.CURRENT_YEAR.outputs }}
+          year: ${{ steps.CURRENT_YEAR.outputs.run }}
