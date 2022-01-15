@@ -22,14 +22,19 @@ jobs:
       - name: Modify File
         run: |
           ./.ci/bump-license-year.sh
+      -name: CURRENT_YEAR
+        run: |
+          echo $(date +"%Y")
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "minor: bump year to $(date +'%Y')"
+          env:
+            year: ${{ steps.CURRENT_YEAR.output }}
+          commit-message: "minor: bump year to $year"
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: bump-year
           delete-branch: true
           body: |
-            minor: bump year to $(date +'%Y')
+            minor: bump year to $year
             Happy New Year!!
