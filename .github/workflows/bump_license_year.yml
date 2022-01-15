@@ -1,0 +1,35 @@
+#############################################################################
+# Github Action to bump license year
+#
+# Workflow starts every new year.
+#
+##############################################################################
+name: "Bump license year"
+on:
+  schedule:
+    - cron: "0 0 1 1 *"
+  # So we can manually trigger if required
+  workflow_dispatch:
+jobs:
+  bump:
+    name: Bump license year
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the latest code
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Modify File
+        run: |
+          ./../../.ci/bump-license-year.sh
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: "minor: bump year to $(date +'%Y')"
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          branch: bump-year
+          delete-branch: true
+          body: |
+            minor: bump year to $(date +'%Y')
+            Happy New Year!!
