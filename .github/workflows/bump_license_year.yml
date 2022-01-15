@@ -26,6 +26,12 @@ jobs:
         id: CURRENT_YEAR
         run: |
           year=$(date +"%Y")
+      - name: Echo Year
+        id: echo_year
+        run: |
+            echo $year
+        env:
+          year: ${{ steps.CURRENT_YEAR.outputs.year }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
