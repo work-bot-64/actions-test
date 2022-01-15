@@ -42,5 +42,5 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: bump-year
           delete-branch: true
-          body: '$year'
-          title: ${year}
+          body: "minor: Bump year to ${{ steps.CURRENT_YEAR.outputs.year }}"
+          title: "minor: Bump year to ${{ steps.CURRENT_YEAR.outputs.year }}"
