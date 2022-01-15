@@ -29,7 +29,7 @@ jobs:
       - name: Echo Year
         id: echo_year
         run: |
-            echo $year
+            echo "::set-output name=year::$(date +'%Y')"
         env:
           year: ${{ steps.CURRENT_YEAR.outputs.year }}
       - name: Create Pull Request
