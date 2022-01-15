@@ -6,6 +6,7 @@
 ##############################################################################
 name: "Bump license year"
 on:
+  push:
   schedule:
     - cron: "0 0 1 1 *"
   # So we can manually trigger if required
