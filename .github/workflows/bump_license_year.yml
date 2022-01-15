@@ -34,8 +34,10 @@ jobs:
           year: ${{ steps.CURRENT_YEAR.outputs.year }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
+        env:
+          year: ${{ steps.CURRENT_YEAR.outputs.year }}
         with:
-          commit-message: "minor: bump year to '${year}'"
+          commit-message: "minor: bump year to ${year}"
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: bump-year
@@ -43,6 +45,4 @@ jobs:
           body: |
             minor: bump year to $year
             Happy New Year!!
-          title: "minor: bump year to '$year'"
-        env:
-          year: ${{ steps.CURRENT_YEAR.outputs.year }}
+          title: "minor: bump year to ${year}"
