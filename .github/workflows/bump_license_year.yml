@@ -22,7 +22,7 @@ jobs:
       - name: Modify File
         run: |
           ./.ci/bump-license-year.sh
-      -name: CURRENT_YEAR
+      - name: CURRENT_YEAR
         run: |
           echo $(date +"%Y")
       - name: Create Pull Request
