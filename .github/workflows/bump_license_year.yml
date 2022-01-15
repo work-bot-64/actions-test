@@ -27,9 +27,9 @@ jobs:
           echo $(date +"%Y")
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
+        env:
+          year: ${{ steps.CURRENT_YEAR.output }}
         with:
-          env:
-            year: ${{ steps.CURRENT_YEAR.output }}
           commit-message: "minor: bump year to $year"
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
