@@ -37,10 +37,10 @@ jobs:
         env:
           year: ${{ steps.CURRENT_YEAR.outputs.year }}
         with:
-          commit-message: "minor: bump year to" $year
+          commit-message: "minor: bump year to ${year}"
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: bump-year
           delete-branch: true
-          body: "minor: bump year to" ${year}
-          title: "minor: bump year to" '$year'
+          body: "minor: bump year to '${year}'"
+          title: "minor: bump year to '$year'"
