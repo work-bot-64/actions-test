@@ -13,8 +13,6 @@ API_GITHUB_PREFIX="https://api.github.com/repos"
 GITHUB_HOST="https://github.com"
 CHECKSTYLE_ISSUE_PREFIX="https:\/\/github.com\/Vyom-Yadav\/actions-test\/issues\/"
 
-echo "Linked issues are:- "$LINKED_ISSUES
-
 # collect issues where full link is used
 grep -IPor "(after|[Tt]il[l]?) $GITHUB_HOST/[\w.-]+/[\w.-]+/issues/\d{1,5}" . \
   | sed -e 's/:.*github.com\//:/' >> $MENTIONED_ISSUES
@@ -29,10 +27,8 @@ if [ ! -z "$LINKED_ISSUES" ]; then
   sed -i "s/^/$CHECKSTYLE_ISSUE_PREFIX/g" $LINKED_ISSUES_FORMATTED
 fi
 
-echo "Formatted linked issues are:- "
-cat $LINKED_ISSUES_FORMATTED
-
 for line in $(sort -u $MENTIONED_ISSUES); do
+  echo $line
   issue=${line#*:}
   STATE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_GITHUB_PREFIX/$issue" \
    | jq '.state' | xargs)
