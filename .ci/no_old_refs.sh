@@ -28,7 +28,6 @@ if [ ! -z "$LINKED_ISSUES" ]; then
 fi
 
 for line in $(sort -u $MENTIONED_ISSUES); do
-  echo $line
   issue=${line#*[0-9]:}
   STATE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_GITHUB_PREFIX/$issue" \
    | jq '.state' | xargs)
@@ -44,10 +43,10 @@ for line in $(sort -u $MENTIONED_ISSUES); do
 done
 
 if [ -f "$CLOSED_ISSUES" ]; then
-    echo "Following issues are mentioned in code to do something after they are closed:"
+    printf "Following issues are mentioned in code to do something after they are closed:\n"
     cat $CLOSED_ISSUES
     if [ -f "$LINKED_ISSUES_MENTIONED" ]; then
-      echo "Following issues are linked to the pull request and are also mentioned in the code:"
+      printf "\nFollowing issues are linked to the pull request and are also mentioned in the code:\n"
       cat $LINKED_ISSUES_MENTIONED
     fi
     exit 1
