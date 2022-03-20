@@ -23,12 +23,12 @@ for line in $(sort -u $MENTIONED_ISSUES); do
   STATE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_GITHUB_PREFIX/$issue" \
    | jq '.state' | xargs)
   if [ "$STATE" = "closed" ]; then
-    echo "$line" >> $CLOSED_ISSUES
+    echo "${line%:*} -> $GITHUB_HOST/$issue" >> $CLOSED_ISSUES
   fi
 done
 
 if [ -f "$CLOSED_ISSUES" ]; then
-    echo "Following issues are mentioned in code to do something after they are closed:"
+    echo "Following issues are mentioned in code to do something after they are closed:\n"
     cat $CLOSED_ISSUES
     exit 1
 fi
