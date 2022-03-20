@@ -12,6 +12,8 @@ LINKED_ISSUES_MENTIONED=/tmp/linked_issues_mentioned
 API_GITHUB_PREFIX="https://api.github.com/repos"
 GITHUB_HOST="https://github.com"
 
+echo $LINKED_ISSUES
+
 # collect issues where full link is used
 grep -IPor "(after|[Tt]il[l]?) $GITHUB_HOST/[\w.-]+/[\w.-]+/issues/\d{1,5}" . \
   | sed -e 's/:.*github.com\//:/' >> $MENTIONED_ISSUES
