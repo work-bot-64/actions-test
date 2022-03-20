@@ -23,10 +23,16 @@ jobs:
           repository: Vyom-Yadav/actions-test
           ref: master
           path: actions-test
-
+      - name: Linked Issues
+        id: links
+        uses: go-actions/linked-issues@v0.1.0
+        with:
+          pr_url: ${{github.event.pull_request.html_url}}
+          format: IssueURL
       - name: Check Issues
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          LINKED_ISSUES: '${{ steps.links.outputs.issues }}'
         run: |
           cd actions-test
           ./.ci/no_old_refs.sh
