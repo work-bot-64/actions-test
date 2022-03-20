@@ -23,12 +23,10 @@ jobs:
           repository: Vyom-Yadav/actions-test
           ref: master
           path: actions-test
-      - name: Linked Issues
+      - name: PR linked issues
         id: links
-        uses: go-actions/linked-issues@v0.1.0
-        with:
-          pr_url: ${{github.event.pull_request.html_url}}
-          format: IssueURL
+        uses: mondeja/pr-linked-issues-action@v2
+        if: github.event_name == 'pull_request'
       - name: Check Issues
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
