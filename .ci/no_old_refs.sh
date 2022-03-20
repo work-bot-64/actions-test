@@ -25,7 +25,7 @@ grep -IPor "[Tt]il[l]? #\d{1,5}" . \
 
 # $LINKED_ISSUES need formatting before the are used
 if [ ! -z "$LINKED_ISSUES" ]; then
-  echo $LINKED_ISSUES | sed -e 's/, /\n/g' >> $LINKED_ISSUES_FORMATTED
+  echo $LINKED_ISSUES | sed -e 's/,/\n/g' >> $LINKED_ISSUES_FORMATTED
   sed -i "s/^/$CHECKSTYLE_ISSUE_PREFIX/g" $LINKED_ISSUES_FORMATTED
 fi
 
