@@ -29,7 +29,7 @@ for line in $(sort -u $MENTIONED_ISSUES); do
    | jq '.state' | xargs)
   if [ "$STATE" = "closed" ]; then
     echo "${line%:*} -> $GITHUB_HOST/$issue" >> $CLOSED_ISSUES
-  else
+  elif [ ! -z "$LINKED_ISSUES" ]; then
     for linked_issue in $(sort -u $LINKED_ISSUES_FORMATTED); do
       if [ "$linked_issue" = "$GITHUB_HOST/$issue" ]; then
         echo "${line%:*} -> $GITHUB_HOST/$issue" >> $LINKED_ISSUES_MENTIONED
