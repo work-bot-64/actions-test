@@ -26,7 +26,7 @@ for line in $(sort -u $MENTIONED_ISSUES); do
 done
 
 if [ -f "$CLOSED_ISSUES" ]; then
-    echo -e "Following issues are mentioned in code to do something after they are closed:"
+    printf "Following issues are mentioned in code to do something after they are closed:\n"
     cat $CLOSED_ISSUES
     exit 1
 fi
