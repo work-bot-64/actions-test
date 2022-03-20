@@ -19,10 +19,6 @@ jobs:
     steps:
       - name: Download actions-test
         uses: actions/checkout@v2
-        with:
-          repository: Vyom-Yadav/actions-test
-          ref: master
-          path: actions-test
       - name: PR linked issues
         id: links
         uses: mondeja/pr-linked-issues-action@v2
