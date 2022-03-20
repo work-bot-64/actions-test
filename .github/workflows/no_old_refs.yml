@@ -27,6 +27,8 @@ jobs:
         id: links
         uses: mondeja/pr-linked-issues-action@v2
         if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check Issues
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
