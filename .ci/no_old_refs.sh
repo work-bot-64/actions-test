@@ -11,6 +11,7 @@ LINKED_ISSUES_FORMATTED=/tmp/linked_issues
 LINKED_ISSUES_MENTIONED=/tmp/linked_issues_mentioned
 API_GITHUB_PREFIX="https://api.github.com/repos"
 GITHUB_HOST="https://github.com"
+CHECKSTYLE_ISSUE_PREFIX="https:\/\/github.com\/Vyom-Yadav\/actions-test\/issues\/"
 
 echo $LINKED_ISSUES
 
@@ -23,7 +24,10 @@ grep -IPor "[Tt]il[l]? #\d{1,5}" . \
   | sed -e 's/:.*#/:Vyom-Yadav\/actions-test\/issues\//' >> $MENTIONED_ISSUES
 
 # $LINKED_ISSUES need formatting before the are used
-echo $LINKED_ISSUES | sed -e 's/, /\n/g' >> $LINKED_ISSUES_FORMATTED
+if [ ! -z "$LINKED_ISSUES" ]; then
+  echo $LINKED_ISSUES | sed -e 's/, /\n/g' >> $LINKED_ISSUES_FORMATTED
+  sed -i "s/^/$CHECKSTYLE_ISSUE_PREFIX/g" $LINKED_ISSUES_FORMATTED
+fi
 
 for line in $(sort -u $MENTIONED_ISSUES); do
   issue=${line#*:}
