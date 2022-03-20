@@ -30,5 +30,4 @@ jobs:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           LINKED_ISSUES: '${{ steps.links.outputs.issues }}'
         run: |
-          cd actions-test
           ./.ci/no_old_refs.sh
