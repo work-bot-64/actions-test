@@ -29,7 +29,8 @@ if [ ! -z "$LINKED_ISSUES" ]; then
   sed -i "s/^/$CHECKSTYLE_ISSUE_PREFIX/g" $LINKED_ISSUES_FORMATTED
 fi
 
-echo "Formatted linked issues are:- "$LINKED_ISSUES_FORMATTED
+echo "Formatted linked issues are:- "
+cat $LINKED_ISSUES_FORMATTED
 
 for line in $(sort -u $MENTIONED_ISSUES); do
   issue=${line#*:}
