@@ -21,7 +21,7 @@ grep -IPor "[Tt]il[l]? #\d{1,5}" . \
   | sed -e 's/:.*#/:Vyom-Yadav\/actions-test\/issues\//' >> $MENTIONED_ISSUES
 
 # $LINKED_ISSUES need formatting before the are used
-echo $LINKED_ISSUES | sed -e 's/ /\n/g' >> $LINKED_ISSUES_FORMATTED
+echo $LINKED_ISSUES | sed -e 's/, /\n/g' >> $LINKED_ISSUES_FORMATTED
 
 for line in $(sort -u $MENTIONED_ISSUES); do
   issue=${line#*:}
