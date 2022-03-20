@@ -14,12 +14,12 @@ grep -IPor "(after|[Tt]il[l]?) $GITHUB_HOST/[\w.-]+/[\w.-]+/issues/\d{1,5}" . \
 
 # collect checkstyle issues where only hash sign is used
 grep -IPor "[Tt]il[l]? #\d{1,5}" . \
-  | sed -e 's/:.*#/:checkstyle\/checkstyle\/issues\//' >> $MENTIONED_ISSUES
+  | sed -e 's/:.*#/:Vyom-Yadav\/actions-test\/issues\//' >> $MENTIONED_ISSUES
 
 cat $MENTIONED_ISSUES
 
 for line in $(sort -u $MENTIONED_ISSUES); do
-  issue = ${line::}
+  issue=${line#*:}
   STATE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_GITHUB_PREFIX/$issue" \
    | jq '.state' | xargs)
   if [ "$STATE" = "closed" ]; then
