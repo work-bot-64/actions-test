@@ -14,12 +14,12 @@ GITHUB_HOST="https://github.com"
 CHECKSTYLE_ISSUE_PREFIX="https:\/\/github.com\/Vyom-Yadav\/actions-test\/issues\/"
 
 # collect issues where full link is used
-grep -IPor "(after|[Tt]il[l]?) $GITHUB_HOST/[\w.-]+/[\w.-]+/issues/\d{1,5}" . \
-  | sed -e 's/:.*github.com\//:/' >> $MENTIONED_ISSUES
+grep -IPonr "(after|[Tt]il[l]?) $GITHUB_HOST/[\w.-]+/[\w.-]+/issues/\d{1,5}" . \
+  | sed -e 's/:(?!\d).*github.com\//:/' >> $MENTIONED_ISSUES
 
 # collect checkstyle issues where only hash sign is used
-grep -IPor "[Tt]il[l]? #\d{1,5}" . \
-  | sed -e 's/:.*#/:Vyom-Yadav\/actions-test\/issues\//' >> $MENTIONED_ISSUES
+grep -IPonr "[Tt]il[l]? #\d{1,5}" . \
+  | sed -e 's/:(?!\d).*#/:Vyom-Yadav\/actions-test\/issues\//' >> $MENTIONED_ISSUES
 
 # $LINKED_ISSUES need formatting before the are used
 if [ ! -z "$LINKED_ISSUES" ]; then
@@ -29,7 +29,7 @@ fi
 
 for line in $(sort -u $MENTIONED_ISSUES); do
   echo $line
-  issue=${line#*:}
+  issue=${line#*:} # remove prefix ending with :
   STATE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_GITHUB_PREFIX/$issue" \
    | jq '.state' | xargs)
   if [ "$STATE" = "closed" ]; then
