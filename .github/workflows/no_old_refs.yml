@@ -25,12 +25,6 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check Issues
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          LINKED_ISSUES: '${{ steps.links.outputs.issues }}'
-        run: |
-          ./.ci/no_old_refs.sh
       - name: Print bunch of stuff
         run: |
           echo Github action reposiroty: $GITHUB_ACTION_REPOSITORY
@@ -38,3 +32,9 @@ jobs:
           ehco Github head ref: $GITHUB_HEAD_REF
           echo Github repository: $GITHUB_REPOSITORY
           echo Github workspace: $GITHUB_WORKSPACE
+      - name: Check Issues
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          LINKED_ISSUES: '${{ steps.links.outputs.issues }}'
+        run: |
+          ./.ci/no_old_refs.sh
