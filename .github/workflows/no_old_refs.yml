@@ -37,5 +37,7 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           LINKED_ISSUES: '${{ steps.links.outputs.issues }}'
+          PR_HEAD_REPO_NAME: "${{ github.event.pull_request.head.repo.full_name }}"
+          GITHUB_HEAD_REF: "${{ github.head.ref }}"
         run: |
           ./.ci/no_old_refs.sh

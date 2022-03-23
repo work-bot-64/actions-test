@@ -12,6 +12,13 @@ LINKED_ISSUES_MENTIONED=/tmp/linked_issues_mentioned
 API_GITHUB_PREFIX="https://api.github.com/repos"
 GITHUB_HOST="https://github.com"
 CHECKSTYLE_ISSUE_PREFIX="https:\/\/github.com\/Vyom-Yadav\/actions-test\/issues\/"
+MAIN_REPO="Vyom-Yadav/actions-test"
+DEFAULT_BRANCH="master"
+
+if [ ! -z "$PR_HEAD_REPO_NAME" ]; then
+  MAIN_REPO=$PR_HEAD_REPO_NAME
+  DEFAULT_BRANCH=$GITHUB_HEAD_REF
+fi
 
 # collect issues where full link is used
 grep -IPonr "(after|[Tt]il[l]?) $GITHUB_HOST/[\w.-]+/[\w.-]+/issues/\d{1,5}" . \
@@ -29,14 +36,19 @@ fi
 
 for line in $(sort -u $MENTIONED_ISSUES); do
   issue=${line#*[0-9]:}
+  location=${line%:[0-9]*}
+  location=${location:2}
+  line_number=${line#*:}
+  line_number=${line_number%:*}
+  LINK="$GITHUB_HOST/$MAIN_REPO/blob/$DEFAULT_BRANCH/$location#L$line_number"
   STATE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$API_GITHUB_PREFIX/$issue" \
    | jq '.state' | xargs)
   if [ "$STATE" = "closed" ]; then
-    echo "${line%:*} -> $GITHUB_HOST/$issue" >> $CLOSED_ISSUES
+    echo "$LINK" >> $CLOSED_ISSUES
   elif [ ! -z "$LINKED_ISSUES" ]; then
     for linked_issue in $(sort -u $LINKED_ISSUES_FORMATTED); do
       if [ "$linked_issue" = "$GITHUB_HOST/$issue" ]; then
-        echo "${line%:*} -> $GITHUB_HOST/$issue" >> $LINKED_ISSUES_MENTIONED
+        echo "$LINK" >> $LINKED_ISSUES_MENTIONED
       fi
     done
   fi
