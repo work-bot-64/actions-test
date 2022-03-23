@@ -32,6 +32,7 @@ jobs:
           echo Github head ref: "${GITHUB_HEAD_REF}"
           echo Github repository: "${GITHUB_REPOSITORY}"
           echo Github workspace: "${GITHUB_WORKSPACE}"
+          echo "${{ github.event.pull_request.head.repo.full_name }}"
       - name: Check Issues
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
