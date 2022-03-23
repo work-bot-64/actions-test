@@ -31,7 +31,7 @@ jobs:
           echo Github base ref: "${GITHUB_BASE_REF}"
           echo Github head ref: "${GITHUB_HEAD_REF}"
           echo Github repository: "${GITHUB_REPOSITORY}"
-          echo Github workspace: "${GITHUB_WORKSPACE"}
+          echo Github workspace: "${GITHUB_WORKSPACE}"
       - name: Check Issues
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
